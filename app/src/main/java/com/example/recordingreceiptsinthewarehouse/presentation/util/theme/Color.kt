@@ -1,4 +1,4 @@
-package com.example.recordingreceiptsinthewarehouse.ui.theme
+package com.example.recordingreceiptsinthewarehouse.presentation.util.theme
 
 import androidx.compose.ui.graphics.Color
 

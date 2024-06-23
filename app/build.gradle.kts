@@ -42,10 +42,10 @@ android {
     buildFeatures {
         compose = true
     }
-//    composeCompiler {
-//        enableStrongSkippingMode = true
-//        includeSourceInformation = true
-//    }
+    composeCompiler {
+        enableStrongSkippingMode = true
+        includeSourceInformation = true
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
