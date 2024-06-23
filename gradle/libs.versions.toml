@@ -17,6 +17,8 @@ lifecycleExtensionsVersion = "2.2.0"
 lifecycleRuntimeKtxVersion = "2.8.2"
 navigationComposeVersion = "2.8.0-beta03"
 reviewVersion = "2.0.1"
+serializationPluginVersion = "2.0.0"
+serializationVersion = "1.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,10 +62,14 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "lifecycleExtensionsVersion" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 
+#Serialization
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationVersion" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin"  }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serializationPluginVersion"  }
 

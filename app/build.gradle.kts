@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -96,4 +97,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.extensions)
+
+    //Serialization
+    implementation(libs.kotlinx.serialization)
 }
