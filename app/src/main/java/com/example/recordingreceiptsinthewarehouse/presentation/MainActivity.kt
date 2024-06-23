@@ -1,4 +1,4 @@
-package com.example.recordingreceiptsinthewarehouse
+package com.example.recordingreceiptsinthewarehouse.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
