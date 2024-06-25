@@ -24,7 +24,7 @@ fun NavGraph(
         startDestination = startDestination
     ) {
         composable<Screen.Home> {
-            
+
         }
 
         composable<Screen.DocumentsList> {
