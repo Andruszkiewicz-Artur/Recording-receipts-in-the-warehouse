@@ -1,36 +1,40 @@
 package com.example.recordingreceiptsinthewarehouse.presentation.util.navigation
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.ui.res.stringResource
+import com.example.recordingreceiptsinthewarehouse.R
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class Screen {
-
-    @Serializable
-    data object Home: Screen()
-
     @Serializable
     data class AddEditContractor(
-        val id: Int
+        val id: Long
     ): Screen()
 
     @Serializable
     data class AddEditDocument(
-        val symbol: String
+        val id: Long
     ): Screen()
 
     @Serializable
     data object DocumentsList: Screen()
 
     @Serializable
-    data object DocumentsContractor: Screen()
+    data object ContractorList: Screen()
 
     @Serializable
     data class DocumentPosition(
-        val id: Int
+        val id: Long
+    ): Screen()
+
+    @Serializable
+    data class DocumentDetails(
+        val id: Long
     ): Screen()
 
     @Serializable
     data class AddEditDocumentPosition(
-        val id: Int
+        val id: Long
     ): Screen()
 }

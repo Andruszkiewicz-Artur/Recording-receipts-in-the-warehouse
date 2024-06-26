@@ -7,7 +7,7 @@ import com.example.recordingreceiptsinthewarehouse.domain.model.Document
 @Entity(tableName = "Documents")
 data class DocumentEntity(
     @PrimaryKey(autoGenerate = true)
-    val documentId: Long,
+    val documentId: Long?,
     val data: Long,
     val symbol: String,
     val contractorId: Int,

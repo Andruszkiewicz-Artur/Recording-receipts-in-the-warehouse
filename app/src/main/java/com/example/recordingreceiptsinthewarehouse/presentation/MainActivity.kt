@@ -1,5 +1,6 @@
 package com.example.recordingreceiptsinthewarehouse.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.recordingreceiptsinthewarehouse.presentation.util.comp.AppScaffold
+import com.example.recordingreceiptsinthewarehouse.presentation.util.comp.BottomBarNavigation
 import com.example.recordingreceiptsinthewarehouse.presentation.util.navigation.NavGraph
 import com.example.recordingreceiptsinthewarehouse.presentation.util.navigation.Screen
 import com.example.recordingreceiptsinthewarehouse.presentation.util.theme.RecordingReceiptsInTheWarehouseTheme

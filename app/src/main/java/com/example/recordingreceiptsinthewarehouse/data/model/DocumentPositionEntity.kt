@@ -7,7 +7,7 @@ import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentPosition
 @Entity(tableName = "DocumentsPosition")
 data class DocumentPositionEntity(
     @PrimaryKey(autoGenerate = true)
-    val positionId: Long,
+    val positionId: Long?,
     val documentOwnId: Long,
     val name: String,
     val count: Float,

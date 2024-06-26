@@ -11,10 +11,13 @@ import kotlinx.coroutines.flow.Flow
 interface ContractorDao {
 
     @Upsert
-    fun upsertContractor(contractorEntity: ContractorEntity)
+    suspend fun upsertContractor(contractorEntity: ContractorEntity)
 
     @Delete
-    fun deleteContractor(contractorEntity: ContractorEntity)
+    suspend fun deleteContractor(contractorEntity: ContractorEntity)
+
+    @Query("SELECT * FROM contractors WHERE contractorId == :idContractor")
+    suspend fun getContractorById(idContractor: Long): ContractorEntity?
 
     @Query("SELECT * FROM contractors")
     fun getAllContractors(): Flow<List<ContractorEntity>>

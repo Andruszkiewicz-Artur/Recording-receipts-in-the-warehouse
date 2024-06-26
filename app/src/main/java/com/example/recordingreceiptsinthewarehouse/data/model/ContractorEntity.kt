@@ -7,7 +7,7 @@ import com.example.recordingreceiptsinthewarehouse.domain.model.Contractor
 @Entity(tableName = "Contractors")
 data class ContractorEntity(
     @PrimaryKey(autoGenerate = true)
-    val contractorId: Long,
+    val contractorId: Long?,
     val symbol: String,
     val name: String
 ) {

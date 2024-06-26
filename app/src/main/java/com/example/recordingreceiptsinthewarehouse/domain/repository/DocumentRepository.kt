@@ -10,21 +10,23 @@ import com.example.recordingreceiptsinthewarehouse.domain.model.Document as Docu
 
 interface DocumentRepository {
 
-    fun upsertDocument(document: Document)
+    suspend fun upsertDocument(document: Document)
 
-    fun deleteDocument(document: Document)
+    suspend fun deleteDocument(document: Document)
 
-    fun getAllDocuments(): Flow<List<Document>>
+    suspend fun getAllDocuments(): Flow<List<Document>>
 
-    fun getDocumentById(documentId: Long): DocumentWithContractorAndPositions
+    suspend fun getDocumentById(documentId: Long): DocumentWithContractorAndPositions
 
-    fun upsertContractor(contractor: Contractor)
+    suspend fun upsertContractor(contractor: Contractor)
 
-    fun deleteContractor(contractor: Contractor)
+    suspend fun deleteContractor(contractor: Contractor)
 
-    fun getAllContractors(): Flow<List<Contractor>>
+    suspend fun getAllContractors(): Flow<List<Contractor>>
 
-    fun upsertDocumentPosition(document: Document)
+    suspend fun upsertDocumentPosition(document: Document)
 
-    fun deleteDocumentPosition(document: Document)
+    suspend fun deleteDocumentPosition(document: Document)
+
+    suspend fun getContractorById(idContractor: Long): Contractor?
 }

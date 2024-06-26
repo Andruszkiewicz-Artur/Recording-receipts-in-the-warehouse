@@ -9,9 +9,9 @@ import com.example.recordingreceiptsinthewarehouse.data.model.DocumentEntity
 interface DocumentPositionDao {
 
     @Upsert
-    fun upsertDocumentPosition(documentEntity: DocumentEntity)
+    suspend fun upsertDocumentPosition(documentEntity: DocumentEntity)
 
     @Delete
-    fun deleteDocumentPosition(documentEntity: DocumentEntity)
+    suspend fun deleteDocumentPosition(documentEntity: DocumentEntity)
 
 }

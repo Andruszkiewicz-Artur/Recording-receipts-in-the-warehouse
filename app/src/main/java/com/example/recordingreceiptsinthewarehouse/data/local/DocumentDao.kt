@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.Flow
 interface DocumentDao {
 
     @Upsert
-    fun upsertDocument(documentEntity: DocumentEntity)
+    suspend fun upsertDocument(documentEntity: DocumentEntity)
 
     @Delete
-    fun deleteDocument(documentEntity: DocumentEntity)
+    suspend fun deleteDocument(documentEntity: DocumentEntity)
 
     @Query("SELECT * FROM documents ORDER BY data ASC")
     fun getAllDocuments(): Flow<List<DocumentEntity>>

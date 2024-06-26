@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">RecordingReceiptsInTheWarehouse</string>
+    <string name="app_name">Recording Receipts In The Warehouse</string>
+    <string name="chooseView">ChooseView</string>
+    <string name="documents">Documents</string>
+    <string name="documentPosition">Document Position</string>
+    <string name="documentDetails">Document Details</string>
+    <string name="contractors">Contractors</string>
+    <string name="addDocument">Add Document</string>
+    <string name="editDocument">Edit Document</string>
+    <string name="addContractor">Add Contractor</string>
+    <string name="editContractor">Edit Contractor</string>
+    <string name="addDocumentPosition">Add Document Position</string>
+    <string name="editDocumentPosition">Edit Document Position</string>
+    <string name="dataNotYet">Data has not yet been entered.</string>
+    <string name="symbol">Symbol</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
 </resources>
