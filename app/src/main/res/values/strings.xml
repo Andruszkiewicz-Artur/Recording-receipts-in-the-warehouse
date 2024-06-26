@@ -9,11 +9,13 @@
     <string name="editDocument">Edit Document</string>
     <string name="addContractor">Add Contractor</string>
     <string name="editContractor">Edit Contractor</string>
+    <string name="chooseContractor">Choose Contractor</string>
     <string name="addDocumentPosition">Add Document Position</string>
     <string name="editDocumentPosition">Edit Document Position</string>
     <string name="dataNotYet">Data has not yet been entered.</string>
     <string name="symbol">Symbol</string>
     <string name="name">Name</string>
+    <string name="contractor">Contractor</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>
 </resources>

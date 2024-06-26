@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
 import com.example.recordingreceiptsinthewarehouse.data.model.DocumentEntity
+import com.example.recordingreceiptsinthewarehouse.data.model.DocumentWithContractorEntity
 import com.example.recordingreceiptsinthewarehouse.data.model.DocumentWithContractorAndPositionsEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -23,5 +24,14 @@ interface DocumentDao {
 
     @Transaction
     @Query("SELECT * FROM documents WHERE documentId = :documentId")
-    fun getDocumentById(documentId: Long): DocumentWithContractorAndPositionsEntity
+    suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): DocumentWithContractorAndPositionsEntity
+
+    @Transaction
+    @Query("SELECT * FROM documents WHERE documentId = :documentId")
+    suspend fun getDocumentWithContractorById(documentId: Long): DocumentWithContractorEntity
+
+    @Transaction
+    @Query("SELECT * FROM documents")
+    fun getAllDocumentWithContractor(): Flow<List<DocumentWithContractorEntity>>
+
 }

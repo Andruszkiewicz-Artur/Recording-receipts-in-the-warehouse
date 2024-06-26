@@ -21,7 +21,9 @@ sealed class Screen {
     data object DocumentsList: Screen()
 
     @Serializable
-    data object ContractorList: Screen()
+    data class ContractorList(
+        val isMainPresentation: Boolean = true
+    ): Screen()
 
     @Serializable
     data class DocumentPosition(

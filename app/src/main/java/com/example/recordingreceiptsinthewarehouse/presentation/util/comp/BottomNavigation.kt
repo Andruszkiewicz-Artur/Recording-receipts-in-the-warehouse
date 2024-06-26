@@ -41,7 +41,11 @@ fun BottomBarNavigation(
                 NavigationBarItem(
                     selected = currentDestination?.hierarchy == screen,
                     onClick = {
-                        navHostController.navigate(screen)
+                        if (screen == Screen.ContractorList) {
+                            navHostController.navigate(Screen.ContractorList(true))
+                        } else {
+                            navHostController.navigate(Screen.DocumentsList)
+                        }
                     },
                     icon = {
                         Icon(

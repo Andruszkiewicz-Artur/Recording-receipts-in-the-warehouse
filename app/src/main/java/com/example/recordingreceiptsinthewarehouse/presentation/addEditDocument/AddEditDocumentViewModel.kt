@@ -1,11 +1,16 @@
 package com.example.recordingreceiptsinthewarehouse.presentation.addEditDocument
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.recordingreceiptsinthewarehouse.domain.model.Document
 import com.example.recordingreceiptsinthewarehouse.domain.repository.DocumentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,11 +25,37 @@ class AddEditDocumentViewModel @Inject constructor(
         when (event) {
             is AddEditDocumentEvent.EnteredSymbol -> {
                 _state.update { it.copy(
-                    symbol = event.value
+                    document = it.document.copy(
+                        symbol = event.value
+                    )
                 ) }
             }
             AddEditDocumentEvent.SaveDocument -> {
+                viewModelScope.launch {
+                    repository.upsertDocument(_state.value.document)
+                }
+            }
+            is AddEditDocumentEvent.SetUpContractor -> {
+                viewModelScope.launch {
+                    _state.update { it.copy(
+                        contractor = repository.getContractorById(event.contractorId),
+                        document = it.document.copy(
+                            contractorId = event.contractorId
+                        )
+                    ) }
+                }
+            }
+            is AddEditDocumentEvent.SetUpDocument -> {
+                if (event.id >= 0) {
+                    viewModelScope.launch {
+                        val documentWithContractor = repository.getDocumentWithContractorById(event.id)
 
+                        _state.update { it.copy(
+                            document = documentWithContractor.document,
+                            contractor = documentWithContractor.contractor
+                        ) }
+                    }
+                }
             }
         }
     }

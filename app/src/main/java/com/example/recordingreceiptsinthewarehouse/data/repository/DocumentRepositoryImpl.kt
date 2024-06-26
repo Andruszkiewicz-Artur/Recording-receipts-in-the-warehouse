@@ -6,8 +6,10 @@ import com.example.recordingreceiptsinthewarehouse.data.local.DocumentPositionDa
 import com.example.recordingreceiptsinthewarehouse.data.model.ContractorEntity
 import com.example.recordingreceiptsinthewarehouse.data.model.DocumentEntity
 import com.example.recordingreceiptsinthewarehouse.data.model.DocumentWithContractorAndPositionsEntity
+import com.example.recordingreceiptsinthewarehouse.data.model.DocumentWithContractorEntity
 import com.example.recordingreceiptsinthewarehouse.domain.model.Contractor
 import com.example.recordingreceiptsinthewarehouse.domain.model.Document
+import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentWithContractor
 import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentWithContractorAndPositions
 import com.example.recordingreceiptsinthewarehouse.domain.repository.DocumentRepository
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +26,11 @@ class DocumentRepositoryImpl(
 
     override suspend fun getAllDocuments(): Flow<List<Document>> = documentDao.getAllDocuments().map { it.map { it.toDomain() } }
 
-    override suspend fun getDocumentById(documentId: Long): DocumentWithContractorAndPositions = documentDao.getDocumentById(documentId).toDomain()
+    override suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): DocumentWithContractorAndPositions = documentDao.getDocumentWithContractorAndPositionsById(documentId).toDomain()
+
+    override suspend fun getDocumentWithContractorById(documentId: Long): DocumentWithContractor = documentDao.getDocumentWithContractorById(documentId).toDomain()
+
+    override suspend fun getAllDocumentWithContractor(): Flow<List<DocumentWithContractor>> = documentDao.getAllDocumentWithContractor().map { it.map { it.toDomain() } }
 
     override suspend fun upsertContractor(contractor: Contractor) = contractorDao.upsertContractor(contractor.toEntity())
 

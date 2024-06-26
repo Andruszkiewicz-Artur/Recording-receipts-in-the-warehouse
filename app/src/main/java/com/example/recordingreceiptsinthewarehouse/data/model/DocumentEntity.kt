@@ -10,7 +10,7 @@ data class DocumentEntity(
     val documentId: Long?,
     val data: Long,
     val symbol: String,
-    val contractorId: Int,
+    val contractorId: Long?,
 ) {
     fun toDomain() = Document(documentId, data, symbol, contractorId)
 }

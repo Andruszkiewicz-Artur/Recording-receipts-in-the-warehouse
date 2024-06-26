@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.PersonAdd
 import androidx.compose.material3.HorizontalDivider
@@ -33,15 +34,20 @@ import java.util.Date
 @Composable
 fun ContractorsPresentation(
     navHostController: NavHostController,
+    isMainPresentation: Boolean,
     viewModel: ContractorsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
 
     AppScaffold(
+        isNavigation = !isMainPresentation,
+        onClickNavigationButton = { navHostController.popBackStack() },
         title = R.string.contractors,
         floatingActionButton = Icons.Outlined.PersonAdd,
         onClickFloatingActionButton = { navHostController.navigate(Screen.AddEditContractor(-1)) },
-        bottomBar = { BottomBarNavigation(navHostController = navHostController) }
+        bottomBar = { if (isMainPresentation) {
+            BottomBarNavigation(navHostController = navHostController)
+        } }
     ) {
         LazyColumn {
             item {
@@ -66,6 +72,19 @@ fun ContractorsPresentation(
                     },
                     supportingContent = {
                         Text(text = contractor.symbol)
+                    },
+                    leadingContent = {
+                        if (!isMainPresentation) {
+                            IconButton(onClick = {
+                                navHostController.previousBackStackEntry?.savedStateHandle?.set("idContractor", contractor.id ?: -1)
+                                navHostController.popBackStack()
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Add,
+                                    contentDescription = "add"
+                                )
+                            }
+                        }
                     },
                     trailingContent = {
                         IconButton(onClick = { viewModel.removeContractor(contractor) }) {

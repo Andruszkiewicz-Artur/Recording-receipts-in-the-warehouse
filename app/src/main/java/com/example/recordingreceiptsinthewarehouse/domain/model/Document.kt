@@ -6,7 +6,7 @@ data class Document(
     val documentId: Long?,
     val data: Long,
     val symbol: String,
-    val contractorId: Int,
+    val contractorId: Long?,
 ) {
     fun toEntity() = DocumentEntity(documentId, data, symbol, contractorId)
 }
