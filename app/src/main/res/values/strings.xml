@@ -3,6 +3,7 @@
     <string name="chooseView">ChooseView</string>
     <string name="documents">Documents</string>
     <string name="documentPosition">Document Position</string>
+    <string name="positions">Positions</string>
     <string name="documentDetails">Document Details</string>
     <string name="contractors">Contractors</string>
     <string name="addDocument">Add Document</string>
@@ -14,6 +15,7 @@
     <string name="editDocumentPosition">Edit Document Position</string>
     <string name="dataNotYet">Data has not yet been entered.</string>
     <string name="symbol">Symbol</string>
+    <string name="nonContractor">Non Contractor</string>
     <string name="name">Name</string>
     <string name="contractor">Contractor</string>
     <string name="save">Save</string>

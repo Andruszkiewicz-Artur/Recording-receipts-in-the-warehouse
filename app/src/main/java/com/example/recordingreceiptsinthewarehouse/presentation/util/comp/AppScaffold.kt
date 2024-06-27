@@ -1,5 +1,6 @@
 package com.example.recordingreceiptsinthewarehouse.presentation.util.comp
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -28,6 +29,7 @@ import com.example.recordingreceiptsinthewarehouse.R
 fun AppScaffold(
     modifier: Modifier = Modifier,
     title: Int = 0,
+    titleString: String? = null,
     bottomBar: @Composable () -> Unit = {  },
     isNavigation: Boolean = false,
     onClickNavigationButton: () -> Unit = {  },
@@ -38,13 +40,15 @@ fun AppScaffold(
 ) {
     Scaffold(
         topBar = {
-            if (title != 0) {
+            if (title != 0 || titleString != null) {
                 CenterAlignedTopAppBar(
                     actions = {
                         actionButton()
                     },
                     title = {
-                        Text(text = stringResource(id = title))
+                        Column {
+                            Text(text = titleString ?: stringResource(id = title))
+                        }
                     },
                     navigationIcon = {
                         if (isNavigation) {
@@ -75,7 +79,8 @@ fun AppScaffold(
         modifier = modifier
     ) { innerPadding ->
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)

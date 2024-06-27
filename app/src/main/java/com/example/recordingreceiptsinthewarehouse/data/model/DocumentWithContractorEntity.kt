@@ -10,7 +10,7 @@ data class DocumentWithContractorEntity(
         parentColumn = "contractorId",
         entityColumn = "contractorId"
     )
-    val contractor: ContractorEntity
+    val contractor: ContractorEntity?
 ) {
-    fun toDomain() = DocumentWithContractor(document.toDomain(), contractor.toDomain())
+    fun toDomain() = DocumentWithContractor(document.toDomain(), contractor?.toDomain())
 }

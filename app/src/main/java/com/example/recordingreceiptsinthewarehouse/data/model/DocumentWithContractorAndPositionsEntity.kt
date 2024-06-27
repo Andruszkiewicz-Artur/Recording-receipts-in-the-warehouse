@@ -10,12 +10,12 @@ data class DocumentWithContractorAndPositionsEntity(
         parentColumn = "contractorId",
         entityColumn = "contractorId"
     )
-    val contractor: ContractorEntity,
+    val contractor: ContractorEntity?,
     @Relation(
         parentColumn = "documentId",
         entityColumn = "documentOwnId"
     )
     val positions: List<DocumentPositionEntity>
 ) {
-    fun toDomain() = DocumentWithContractorAndPositions(document.toDomain(), contractor.toDomain(), positions.map { it.toDomain() })
+    fun toDomain() = DocumentWithContractorAndPositions(document.toDomain(), contractor?.toDomain(), positions.map { it.toDomain() })
 }

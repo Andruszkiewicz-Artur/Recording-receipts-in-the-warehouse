@@ -1,6 +1,7 @@
 package com.example.recordingreceiptsinthewarehouse.presentation.contractors.comp
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.PersonAdd
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -87,17 +89,21 @@ fun ContractorsPresentation(
                         }
                     },
                     trailingContent = {
-                        IconButton(onClick = { viewModel.removeContractor(contractor) }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Delete,
-                                contentDescription = "remove"
-                            )
+                        Row {
+                            IconButton(onClick = { navHostController.navigate(Screen.AddEditContractor(contractor.id ?: -1)) }) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Edit,
+                                    contentDescription = "edit"
+                                )
+                            }
+                            IconButton(onClick = { viewModel.removeContractor(contractor) }) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Delete,
+                                    contentDescription = "remove"
+                                )
+                            }
                         }
-                    },
-                    modifier = Modifier
-                        .clickable {
-                            navHostController.navigate(Screen.AddEditContractor(contractor.id ?: -1))
-                        }
+                    }
                 )
 
                 if (contractor != state.contractors.last()) {

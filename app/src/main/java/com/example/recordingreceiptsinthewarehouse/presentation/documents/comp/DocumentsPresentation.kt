@@ -2,12 +2,14 @@ package com.example.recordingreceiptsinthewarehouse.presentation.documents.comp
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.NoteAdd
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -71,22 +73,28 @@ fun DocumentsPresentation(
                     },
                     supportingContent = {
                         Column {
-                            Text(text = document.contractor.name + " | " + document.contractor.symbol)
+                            Text(text = if (document.contractor != null) document.contractor.name + " | " + document.contractor.symbol else stringResource(id = R.string.nonContractor))
                             Text(text = formatter.format(Date(document.document.data)))
                         }
                     },
                     trailingContent = {
-                        IconButton(onClick = { viewModel.removeDocument(document.document) }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Delete,
-                                contentDescription = "remove"
-                            )
+                        Row {
+                            IconButton(onClick = { navHostController.navigate(Screen.AddEditDocument(document.document.documentId ?: -1)) }) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Edit,
+                                    contentDescription = "edit"
+                                )
+                            }
+                            IconButton(onClick = { viewModel.removeDocument(document.document) }) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Delete,
+                                    contentDescription = "remove"
+                                )
+                            }
                         }
                     },
                     modifier = Modifier
-                        .clickable { 
-                            navHostController.navigate(Screen.AddEditDocument(document.document.documentId ?: -1))
-                        }
+                        .clickable { navHostController.navigate(Screen.DocumentDetails(document.document.documentId ?: -1)) }
                 )
 
                 if (state.documentsWithContractors.last() != document) {

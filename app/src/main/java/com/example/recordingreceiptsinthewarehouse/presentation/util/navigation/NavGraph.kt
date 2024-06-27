@@ -16,6 +16,7 @@ import androidx.navigation.toRoute
 import com.example.recordingreceiptsinthewarehouse.presentation.addEditContractors.comp.AddEditContractorsPresentation
 import com.example.recordingreceiptsinthewarehouse.presentation.addEditDocument.comp.AddEditDocumentPresentation
 import com.example.recordingreceiptsinthewarehouse.presentation.contractors.comp.ContractorsPresentation
+import com.example.recordingreceiptsinthewarehouse.presentation.documentDetails.comp.DocumentDetailsPresentation
 import com.example.recordingreceiptsinthewarehouse.presentation.documents.comp.DocumentsPresentation
 
 @Composable
@@ -44,6 +45,10 @@ fun NavGraph(
         composable<Screen.DocumentDetails> { backStackEntry ->
             val document = backStackEntry.toRoute<Screen.DocumentDetails>()
 
+            DocumentDetailsPresentation(
+                navHostController = navController,
+                idDocument = document.id
+            )
         }
 
         composable<Screen.DocumentPosition> {
