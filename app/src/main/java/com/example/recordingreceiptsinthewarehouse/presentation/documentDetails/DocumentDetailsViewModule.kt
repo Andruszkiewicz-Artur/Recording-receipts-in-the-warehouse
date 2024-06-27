@@ -7,6 +7,7 @@ import com.example.recordingreceiptsinthewarehouse.domain.repository.DocumentRep
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,12 +25,17 @@ class DocumentDetailsViewModule @Inject constructor(
             is DocumentDetailsEvent.SetUpView -> {
                 if (event.id >= 0) {
                     viewModelScope.launch {
-                        val document = repository.getDocumentWithContractorAndPositionsById(event.id)
-
-                        _state.update { it.copy(
-                            document = document
-                        ) }
+                        repository.getDocumentWithContractorAndPositionsById(event.id).collectLatest { document ->
+                            _state.update { it.copy(
+                                document = document
+                            ) }
+                        }
                     }
+                }
+            }
+            is DocumentDetailsEvent.DeletePosition -> {
+                viewModelScope.launch {
+                    repository.deleteDocumentPosition(event.documentPosition)
                 }
             }
         }

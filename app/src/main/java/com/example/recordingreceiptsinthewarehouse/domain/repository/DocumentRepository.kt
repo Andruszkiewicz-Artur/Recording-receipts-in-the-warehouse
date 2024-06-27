@@ -4,6 +4,7 @@ import com.example.recordingreceiptsinthewarehouse.data.model.ContractorEntity
 import com.example.recordingreceiptsinthewarehouse.data.model.DocumentEntity
 import com.example.recordingreceiptsinthewarehouse.data.model.DocumentWithContractorAndPositionsEntity
 import com.example.recordingreceiptsinthewarehouse.domain.model.Contractor
+import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentPosition
 import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentWithContractor
 import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentWithContractorAndPositions
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,7 @@ interface DocumentRepository {
 
     suspend fun getAllDocuments(): Flow<List<Document>>
 
-    suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): DocumentWithContractorAndPositions
+    suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): Flow<DocumentWithContractorAndPositions>
 
     suspend fun getDocumentWithContractorById(documentId: Long): DocumentWithContractor
 
@@ -30,9 +31,11 @@ interface DocumentRepository {
 
     suspend fun getAllContractors(): Flow<List<Contractor>>
 
-    suspend fun upsertDocumentPosition(document: Document)
+    suspend fun upsertDocumentPosition(documentPosition: DocumentPosition)
 
-    suspend fun deleteDocumentPosition(document: Document)
+    suspend fun deleteDocumentPosition(documentPosition: DocumentPosition)
 
     suspend fun getContractorById(idContractor: Long): Contractor?
+
+    suspend fun getDocumentPositionById(documentPositionId: Long): DocumentPosition
 }

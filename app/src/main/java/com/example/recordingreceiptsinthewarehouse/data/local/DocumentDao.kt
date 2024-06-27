@@ -24,7 +24,7 @@ interface DocumentDao {
 
     @Transaction
     @Query("SELECT * FROM documents WHERE documentId = :documentId")
-    suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): DocumentWithContractorAndPositionsEntity
+    fun getDocumentWithContractorAndPositionsById(documentId: Long): Flow<DocumentWithContractorAndPositionsEntity>
 
     @Transaction
     @Query("SELECT * FROM documents WHERE documentId = :documentId")

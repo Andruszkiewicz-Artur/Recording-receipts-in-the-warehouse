@@ -17,6 +17,8 @@
     <string name="symbol">Symbol</string>
     <string name="nonContractor">Non Contractor</string>
     <string name="name">Name</string>
+    <string name="count">Count</string>
+    <string name="unit">Unit of measure</string>
     <string name="contractor">Contractor</string>
     <string name="save">Save</string>
     <string name="edit">Edit</string>

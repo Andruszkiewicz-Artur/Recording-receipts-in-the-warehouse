@@ -37,6 +37,7 @@ sealed class Screen {
 
     @Serializable
     data class AddEditDocumentPosition(
-        val id: Long
+        val idDocument: Long,
+        val idDocumentPosition: Long
     ): Screen()
 }

@@ -9,6 +9,7 @@ import com.example.recordingreceiptsinthewarehouse.data.model.DocumentWithContra
 import com.example.recordingreceiptsinthewarehouse.data.model.DocumentWithContractorEntity
 import com.example.recordingreceiptsinthewarehouse.domain.model.Contractor
 import com.example.recordingreceiptsinthewarehouse.domain.model.Document
+import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentPosition
 import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentWithContractor
 import com.example.recordingreceiptsinthewarehouse.domain.model.DocumentWithContractorAndPositions
 import com.example.recordingreceiptsinthewarehouse.domain.repository.DocumentRepository
@@ -26,7 +27,7 @@ class DocumentRepositoryImpl(
 
     override suspend fun getAllDocuments(): Flow<List<Document>> = documentDao.getAllDocuments().map { it.map { it.toDomain() } }
 
-    override suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): DocumentWithContractorAndPositions = documentDao.getDocumentWithContractorAndPositionsById(documentId).toDomain()
+    override suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): Flow<DocumentWithContractorAndPositions> = documentDao.getDocumentWithContractorAndPositionsById(documentId).map { it.toDomain() }
 
     override suspend fun getDocumentWithContractorById(documentId: Long): DocumentWithContractor = documentDao.getDocumentWithContractorById(documentId).toDomain()
 
@@ -38,9 +39,11 @@ class DocumentRepositoryImpl(
 
     override suspend fun getAllContractors(): Flow<List<Contractor>> = contractorDao.getAllContractors().map { it.map { it.toDomain() } }
 
-    override suspend fun upsertDocumentPosition(document: Document) = documentPositionDao.upsertDocumentPosition(document.toEntity())
+    override suspend fun upsertDocumentPosition(documentPosition: DocumentPosition) = documentPositionDao.upsertDocumentPosition(documentPosition.toEntity())
 
-    override suspend fun deleteDocumentPosition(document: Document) = documentPositionDao.deleteDocumentPosition(document.toEntity())
+    override suspend fun deleteDocumentPosition(documentPosition: DocumentPosition) = documentPositionDao.deleteDocumentPosition(documentPosition.toEntity())
 
     override suspend fun getContractorById(idContractor: Long): Contractor? = contractorDao.getContractorById(idContractor)?.toDomain()
+
+    override suspend fun getDocumentPositionById(documentPositionId: Long): DocumentPosition = documentPositionDao.getDocumentWithContractorById(documentPositionId)
 }
