@@ -21,7 +21,9 @@ interface DocumentRepository {
 
     suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): Flow<DocumentWithContractorAndPositions>
 
-    suspend fun getDocumentWithContractorById(documentId: Long): DocumentWithContractor
+    suspend fun getDocumentWithContractorById(documentId: Long): Flow<DocumentWithContractor>
+
+    suspend fun getDocumentById(documentId: Long): Document
 
     suspend fun getAllDocumentWithContractor(): Flow<List<DocumentWithContractor>>
 

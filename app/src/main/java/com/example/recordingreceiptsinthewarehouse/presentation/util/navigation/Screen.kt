@@ -1,8 +1,5 @@
 package com.example.recordingreceiptsinthewarehouse.presentation.util.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.ui.res.stringResource
-import com.example.recordingreceiptsinthewarehouse.R
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,12 +19,7 @@ sealed class Screen {
 
     @Serializable
     data class ContractorList(
-        val isMainPresentation: Boolean = true
-    ): Screen()
-
-    @Serializable
-    data class DocumentPosition(
-        val id: Long
+        val idDocument: Long = -1
     ): Screen()
 
     @Serializable

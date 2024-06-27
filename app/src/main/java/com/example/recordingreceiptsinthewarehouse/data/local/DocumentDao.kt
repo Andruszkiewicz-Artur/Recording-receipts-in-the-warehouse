@@ -22,13 +22,16 @@ interface DocumentDao {
     @Query("SELECT * FROM documents ORDER BY data ASC")
     fun getAllDocuments(): Flow<List<DocumentEntity>>
 
+    @Query("SELECT * FROM documents WHERE documentId = :documentId")
+    suspend fun getDocumentById(documentId: Long): DocumentEntity
+
     @Transaction
     @Query("SELECT * FROM documents WHERE documentId = :documentId")
     fun getDocumentWithContractorAndPositionsById(documentId: Long): Flow<DocumentWithContractorAndPositionsEntity>
 
     @Transaction
     @Query("SELECT * FROM documents WHERE documentId = :documentId")
-    suspend fun getDocumentWithContractorById(documentId: Long): DocumentWithContractorEntity
+    fun getDocumentWithContractorById(documentId: Long): Flow<DocumentWithContractorEntity>
 
     @Transaction
     @Query("SELECT * FROM documents")

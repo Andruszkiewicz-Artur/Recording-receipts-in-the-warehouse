@@ -42,7 +42,7 @@ fun BottomBarNavigation(
                     selected = currentDestination?.hierarchy == screen,
                     onClick = {
                         if (screen == Screen.ContractorList) {
-                            navHostController.navigate(Screen.ContractorList(true))
+                            navHostController.navigate(Screen.ContractorList(-1))
                         } else {
                             navHostController.navigate(Screen.DocumentsList)
                         }

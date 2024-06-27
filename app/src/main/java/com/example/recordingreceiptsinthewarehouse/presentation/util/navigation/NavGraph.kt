@@ -35,11 +35,11 @@ fun NavGraph(
         }
 
         composable<Screen.ContractorList> { backStackEntry ->
-            val isMainPresentation = backStackEntry.toRoute<Screen.ContractorList>()
+            val document = backStackEntry.toRoute<Screen.ContractorList>()
 
             ContractorsPresentation(
                 navHostController = navController,
-                isMainPresentation = isMainPresentation.isMainPresentation
+                idDocument = document.idDocument
             )
         }
 
@@ -50,10 +50,6 @@ fun NavGraph(
                 navHostController = navController,
                 idDocument = document.id
             )
-        }
-
-        composable<Screen.DocumentPosition> {
-
         }
 
         composable<Screen.AddEditDocument> { backStackEntry ->

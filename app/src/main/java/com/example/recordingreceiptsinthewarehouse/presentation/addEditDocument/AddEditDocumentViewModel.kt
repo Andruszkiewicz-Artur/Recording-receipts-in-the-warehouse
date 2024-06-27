@@ -8,6 +8,7 @@ import com.example.recordingreceiptsinthewarehouse.domain.repository.DocumentRep
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -35,25 +36,15 @@ class AddEditDocumentViewModel @Inject constructor(
                     repository.upsertDocument(_state.value.document)
                 }
             }
-            is AddEditDocumentEvent.SetUpContractor -> {
-                viewModelScope.launch {
-                    _state.update { it.copy(
-                        contractor = repository.getContractorById(event.contractorId),
-                        document = it.document.copy(
-                            contractorId = event.contractorId
-                        )
-                    ) }
-                }
-            }
             is AddEditDocumentEvent.SetUpDocument -> {
                 if (event.id >= 0) {
                     viewModelScope.launch {
-                        val documentWithContractor = repository.getDocumentWithContractorById(event.id)
-
-                        _state.update { it.copy(
-                            document = documentWithContractor.document,
-                            contractor = documentWithContractor.contractor
-                        ) }
+                        repository.getDocumentWithContractorById(event.id).collectLatest { documentWithContractor ->
+                            _state.update { it.copy(
+                                document = documentWithContractor.document,
+                                contractor = documentWithContractor.contractor
+                            ) }
+                        }
                     }
                 }
             }

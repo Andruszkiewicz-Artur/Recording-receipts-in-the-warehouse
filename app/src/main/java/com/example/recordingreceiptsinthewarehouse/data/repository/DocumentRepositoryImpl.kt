@@ -29,7 +29,9 @@ class DocumentRepositoryImpl(
 
     override suspend fun getDocumentWithContractorAndPositionsById(documentId: Long): Flow<DocumentWithContractorAndPositions> = documentDao.getDocumentWithContractorAndPositionsById(documentId).map { it.toDomain() }
 
-    override suspend fun getDocumentWithContractorById(documentId: Long): DocumentWithContractor = documentDao.getDocumentWithContractorById(documentId).toDomain()
+    override suspend fun getDocumentWithContractorById(documentId: Long): Flow<DocumentWithContractor> = documentDao.getDocumentWithContractorById(documentId).map { it.toDomain() }
+
+    override suspend fun getDocumentById(documentId: Long): Document = documentDao.getDocumentById(documentId).toDomain()
 
     override suspend fun getAllDocumentWithContractor(): Flow<List<DocumentWithContractor>> = documentDao.getAllDocumentWithContractor().map { it.map { it.toDomain() } }
 

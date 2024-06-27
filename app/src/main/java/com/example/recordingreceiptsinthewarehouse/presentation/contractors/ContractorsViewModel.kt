@@ -36,4 +36,21 @@ class ContractorsViewModel @Inject constructor (
             repository.deleteContractor(contractor)
         }
     }
+
+    fun onEvent(event: ContractorEvent) {
+        when (event) {
+            is ContractorEvent.DeleteContractor -> {
+                viewModelScope.launch {
+                    repository.deleteContractor(event.contractor)
+                }
+            }
+            is ContractorEvent.SetUpContractorInDocument -> {
+                viewModelScope.launch {
+                    val document = repository.getDocumentById(event.idDocument)
+
+                    repository.upsertDocument(document.copy(contractorId = event.contractor.id))
+                }
+            }
+        }
+    }
 }

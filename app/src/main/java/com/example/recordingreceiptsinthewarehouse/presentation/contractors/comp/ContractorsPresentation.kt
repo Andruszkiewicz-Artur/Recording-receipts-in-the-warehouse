@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.recordingreceiptsinthewarehouse.R
+import com.example.recordingreceiptsinthewarehouse.presentation.contractors.ContractorEvent
 import com.example.recordingreceiptsinthewarehouse.presentation.contractors.ContractorsViewModel
 import com.example.recordingreceiptsinthewarehouse.presentation.util.comp.AppScaffold
 import com.example.recordingreceiptsinthewarehouse.presentation.util.comp.BottomBarNavigation
@@ -36,18 +37,18 @@ import java.util.Date
 @Composable
 fun ContractorsPresentation(
     navHostController: NavHostController,
-    isMainPresentation: Boolean,
+    idDocument: Long,
     viewModel: ContractorsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
 
     AppScaffold(
-        isNavigation = !isMainPresentation,
+        isNavigation = idDocument >= 0,
         onClickNavigationButton = { navHostController.popBackStack() },
         title = R.string.contractors,
         floatingActionButton = Icons.Outlined.PersonAdd,
         onClickFloatingActionButton = { navHostController.navigate(Screen.AddEditContractor(-1)) },
-        bottomBar = { if (isMainPresentation) {
+        bottomBar = { if (idDocument < 0) {
             BottomBarNavigation(navHostController = navHostController)
         } }
     ) {
@@ -76,9 +77,9 @@ fun ContractorsPresentation(
                         Text(text = contractor.symbol)
                     },
                     leadingContent = {
-                        if (!isMainPresentation) {
+                        if (idDocument >= 0) {
                             IconButton(onClick = {
-                                navHostController.previousBackStackEntry?.savedStateHandle?.set("idContractor", contractor.id ?: -1)
+                                viewModel.onEvent(ContractorEvent.SetUpContractorInDocument(idDocument, contractor))
                                 navHostController.popBackStack()
                             }) {
                                 Icon(
