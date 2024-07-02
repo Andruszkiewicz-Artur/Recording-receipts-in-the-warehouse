@@ -41,14 +41,15 @@ fun ContractorsPresentation(
     viewModel: ContractorsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
+    val isAddingDocument = idDocument >= 0L || idDocument == -2L
 
     AppScaffold(
-        isNavigation = idDocument >= 0,
+        isNavigation = isAddingDocument,
         onClickNavigationButton = { navHostController.popBackStack() },
         title = R.string.contractors,
         floatingActionButton = Icons.Outlined.PersonAdd,
         onClickFloatingActionButton = { navHostController.navigate(Screen.AddEditContractor(-1)) },
-        bottomBar = { if (idDocument < 0) {
+        bottomBar = { if (!isAddingDocument) {
             BottomBarNavigation(navHostController = navHostController)
         } }
     ) {
@@ -77,9 +78,11 @@ fun ContractorsPresentation(
                         Text(text = contractor.symbol)
                     },
                     leadingContent = {
-                        if (idDocument >= 0) {
+                        if (isAddingDocument) {
                             IconButton(onClick = {
-                                viewModel.onEvent(ContractorEvent.SetUpContractorInDocument(idDocument, contractor))
+                                if (idDocument >= 0) viewModel.onEvent(ContractorEvent.SetUpContractorInDocument(idDocument, contractor))
+                                else navHostController.previousBackStackEntry?.savedStateHandle?.set("idContractor", contractor.id)
+
                                 navHostController.popBackStack()
                             }) {
                                 Icon(
@@ -97,7 +100,7 @@ fun ContractorsPresentation(
                                     contentDescription = "edit"
                                 )
                             }
-                            IconButton(onClick = { viewModel.removeContractor(contractor) }) {
+                            IconButton(onClick = { viewModel.onEvent(ContractorEvent.DeleteContractor(contractor)) }) {
                                 Icon(
                                     imageVector = Icons.Outlined.Delete,
                                     contentDescription = "remove"

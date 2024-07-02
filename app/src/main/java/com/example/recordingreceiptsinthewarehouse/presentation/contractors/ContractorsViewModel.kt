@@ -31,12 +31,6 @@ class ContractorsViewModel @Inject constructor (
         }
     }
 
-    fun removeContractor(contractor: Contractor) {
-        viewModelScope.launch {
-            repository.deleteContractor(contractor)
-        }
-    }
-
     fun onEvent(event: ContractorEvent) {
         when (event) {
             is ContractorEvent.DeleteContractor -> {

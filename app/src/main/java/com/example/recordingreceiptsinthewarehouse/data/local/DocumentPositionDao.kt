@@ -20,4 +20,7 @@ interface DocumentPositionDao {
 
     @Query("SELECT * FROM documentsposition WHERE positionId = :positionId")
     suspend fun getDocumentWithContractorById(positionId: Long): DocumentPosition
+
+    @Query("DELETE FROM DocumentsPosition WHERE documentOwnId IN (SELECT documentId FROM Documents WHERE documentId = :documentId)")
+    suspend fun deleteDocumentPositionsByDocumentId(documentId: Long)
 }

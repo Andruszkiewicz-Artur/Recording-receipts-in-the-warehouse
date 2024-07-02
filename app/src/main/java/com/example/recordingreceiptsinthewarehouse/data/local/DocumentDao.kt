@@ -37,4 +37,7 @@ interface DocumentDao {
     @Query("SELECT * FROM documents")
     fun getAllDocumentWithContractor(): Flow<List<DocumentWithContractorEntity>>
 
+    @Query("UPDATE Documents SET contractorId = NULL WHERE contractorId = :contractorId")
+    suspend fun updateDocumentsContractorId(contractorId: Long)
+
 }

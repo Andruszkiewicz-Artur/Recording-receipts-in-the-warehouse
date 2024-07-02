@@ -32,6 +32,16 @@ fun AddEditDocumentPresentation(
     viewModel: AddEditDocumentViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
+    val idContractor = navHostController.currentBackStackEntry
+        ?.savedStateHandle
+        ?.getStateFlow<Long>("idContractor", -1)
+        ?.collectAsState()
+
+    LaunchedEffect(key1 = idContractor) {
+        idContractor?.value?.let { id ->
+            viewModel.onEvent(AddEditDocumentEvent.SetUpContractor(id))
+        }
+    }
 
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(AddEditDocumentEvent.SetUpDocument(documentId))
@@ -76,7 +86,7 @@ fun AddEditDocumentPresentation(
             },
             modifier = Modifier
                 .clickable {
-                    navHostController.navigate(Screen.ContractorList(documentId))
+                    navHostController.navigate(Screen.ContractorList(if (documentId > -1) documentId else -2 ))
                 }
         )
     }

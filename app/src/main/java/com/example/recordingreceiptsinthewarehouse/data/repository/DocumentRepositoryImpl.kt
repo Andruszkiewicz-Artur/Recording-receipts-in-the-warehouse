@@ -23,7 +23,10 @@ class DocumentRepositoryImpl(
 ): DocumentRepository {
     override suspend fun upsertDocument(document: Document) = documentDao.upsertDocument(document.toEntity())
 
-    override suspend fun deleteDocument(document: Document) = documentDao.deleteDocument(document.toEntity())
+    override suspend fun deleteDocument(document: Document) {
+        documentPositionDao.deleteDocumentPositionsByDocumentId(document.documentId ?: -1)
+        documentDao.deleteDocument(document.toEntity())
+    }
 
     override suspend fun getAllDocuments(): Flow<List<Document>> = documentDao.getAllDocuments().map { it.map { it.toDomain() } }
 
@@ -37,7 +40,10 @@ class DocumentRepositoryImpl(
 
     override suspend fun upsertContractor(contractor: Contractor) = contractorDao.upsertContractor(contractor.toEntity())
 
-    override suspend fun deleteContractor(contractor: Contractor) = contractorDao.deleteContractor(contractor.toEntity())
+    override suspend fun deleteContractor(contractor: Contractor) {
+        contractorDao.deleteContractor(contractor.toEntity())
+        documentDao.updateDocumentsContractorId(contractorId = contractor.toEntity().contractorId ?: -1)
+    }
 
     override suspend fun getAllContractors(): Flow<List<Contractor>> = contractorDao.getAllContractors().map { it.map { it.toDomain() } }
 
